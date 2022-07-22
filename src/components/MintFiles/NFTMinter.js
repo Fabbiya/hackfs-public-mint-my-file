@@ -38,7 +38,7 @@ export default function NFTMinter() {
         method: "POST",
         body: data,
         headers: {
-          Authorization: "4e0b1363-ad8a-4c2c-a61f-4a7a36837416",
+          Authorization: process.env.REACT_APP_NFTPORT,
         },
       };
       console.log("options", options);
@@ -70,7 +70,7 @@ export default function NFTMinter() {
       authenticate({
         provider: "web3Auth",
         clientId:
-          "BNpM3CsdDKc_Ha5Fg2wVZhSofC40SotXCyLPn9HkQfqkk46h3iJfcgPXs32jd4oTXy1NYqQzkQoWw_solPJHan4",
+          process.env.REACT_APP_WEB3AUTH_CLIENT,
       })
         .then(function(user) {
           console.log(user.get("ethAddress"));

@@ -12,20 +12,6 @@ export default function Web3Login() {
     account,
   } = useMoralis();
 
-  //   const login = async () => {
-  //     if (!isAuthenticated) {
-
-  //       await authenticate({signingMessage: "Log in to HACKFS - Mint My File" })
-  //         .then(function (user) {
-  //           console.log("logged in user:", user);
-  //           console.log(user.get("ethAddress"));
-  //         })
-  //         .catch(function (error) {
-  //           console.log(error);
-  //         });
-
-  //     }
-  //   }
 
   const login = async () => {
     console.log("account", account);
@@ -33,7 +19,7 @@ export default function Web3Login() {
       await authenticate({
         provider: "web3Auth",
         clientId:
-          "BNpM3CsdDKc_Ha5Fg2wVZhSofC40SotXCyLPn9HkQfqkk46h3iJfcgPXs32jd4oTXy1NYqQzkQoWw_solPJHan4",
+        process.env.REACT_APP_WEB3AUTH_CLIENT,
       })
         .then(function(user) {
           console.log(user.get("ethAddress"));
