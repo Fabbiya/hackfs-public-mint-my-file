@@ -54,7 +54,7 @@ export default function Profile() {
         </Table>
       </div>
       <h2>Your NFTs</h2>
-      <NFTs />
+      <NFTs wallet={account} />
       <h2>Your Files</h2>
     </Container>
   );

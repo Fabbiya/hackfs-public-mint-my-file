@@ -1,9 +1,9 @@
 
 import React, { useState } from "react";
-import { Button, Alert, Container } from "react-bootstrap";
+import {  Alert, Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { CDBBtn } from "cdbreact";
-import Modal from "react-bootstrap/Modal";
+
 import { useMoralis } from "react-moralis";
 
 export default function MintNFTs() {
@@ -37,7 +37,7 @@ export default function MintNFTs() {
               Authorization: process.env.REACT_APP_NFTPORT,
             },
           };
-          console.log("options", options);
+          
           fetch(
             "https://api.nftport.xyz/v0/mints/easy/files?" +
               new URLSearchParams({

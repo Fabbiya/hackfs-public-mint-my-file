@@ -31,12 +31,20 @@ export default function Web3Login() {
     }
   };
 
+  const { logout } = useMoralis();
+  const logOut = async () => {
+    await logout();
+    console.log("logged out");
+  };
+
   if (isAuthenticated && account) {
     return (
       <>
-        <CDBBtn color="dark" outline circle onClick={login}>
+        <CDBBtn color="dark" outline circle onClick={logOut}>
           {account.substring(0, 4)} ... {account.substring(account.length - 4)}
         </CDBBtn>
+
+        
       </>
     );
   }
