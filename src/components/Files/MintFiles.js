@@ -10,7 +10,7 @@ export default function MintFiles() {
   return (
     <Container  className='my-5'>
       <h2>Your files</h2>
-      <ManageFiles/>
+      
 
     </Container>
   )

@@ -23,18 +23,22 @@ export default function NftMoreDetails(props) {
   };
 
   const burnNft = () => {
-    const formData = new FormData();
-    formData.append("chain", "polygon");
-    formData.append("contract_address", props.nft.contract_address);
-    formData.append("token_id", props.nft.token_id);
-
+    // const formData = new FormData();
+    // formData.append("chain", "polygon");
+    // formData.append("contract_address", props.nft.contract_address);
+    // formData.append("token_id", props.nft.token_id);
+    const data = {
+      chain:'polygon',
+      contract_address:props.nft.contract_address,
+      token_id:props.nft.token_id
+    }
     let url = "https://api.nftport.xyz/v0/mints/customizable";
 
     let options = {
       method: "DELETE",
-      body:formData,
+      body:JSON.stringify(data),
       headers: {
-        
+        "Content-Type": "application/json",
         Authorization: process.env.REACT_APP_NFTPORT,
       },
     };
@@ -84,13 +88,13 @@ export default function NftMoreDetails(props) {
 
           <p>Description: {props.nft.description}</p>
         </Modal.Body>
-        {/* <Modal.Footer>
+        <Modal.Footer>
           {nftMetadata.nft_data && !nftMetadata.nft_data[0].burned && (
             <Button variant="primary" onClick={burnNft}>
               Burn NFT
             </Button>
           )}
-        </Modal.Footer> */}
+        </Modal.Footer>
       </Modal>
     </>
   );

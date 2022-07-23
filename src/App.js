@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./components/Dashboard/Dashboard";
 
-import MintFiles from "./components/MintFiles/MintFiles";
+import MintFiles from "./components/Files/MintFiles";
 import MintNFTs from "./components/NFTs/MintNFTs";
 import Profile from "./components/Profile/Profile";
 import SideNav from "./components/SideNav/SideNav";

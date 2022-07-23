@@ -5,15 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { MoralisProvider } from "react-moralis";
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <MoralisProvider serverUrl={process.env.REACT_APP_SERVER_URL} appId={process.env.REACT_APP_APP_ID}>
-      <BrowserRouter>
+      <HashRouter hashType="noslash">
       <App />
-      </BrowserRouter>
+      </HashRouter>
     </MoralisProvider>
   </React.StrictMode>
 );
