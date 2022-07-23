@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import ManageFiles from '../FileManager/ManageFiles'
 export default function Dashboard() {
   return (
@@ -9,27 +10,30 @@ export default function Dashboard() {
         <Col>
         <Card>
           <Card.Body>
-            <a href='/mintfiles'>
+            {/* <a href='/mintfiles'>
               Mint Files
-            </a>
+            </a> */}
+            <Link to="/mintfiles">Mint Files</Link>
           </Card.Body>
         </Card>
         </Col>
         <Col>
         <Card>
           <Card.Body>
-            <a href='/mintnfts'>
+          <Link to="/mintnfts">Mint NFTs</Link>
+            {/* <a href='/mintnfts'>
               Mint NFTs
-            </a>
+            </a> */}
           </Card.Body>
         </Card>
         </Col>
         <Col>
         <Card>
           <Card.Body>
-            <a href='/profile'>
+            <Link to="/profile">Profile</Link>
+            {/* <a href='/profile'>
               Profile
-            </a>
+            </a> */}
           </Card.Body>
         </Card>
         </Col>

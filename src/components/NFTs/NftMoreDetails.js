@@ -54,6 +54,11 @@ export default function NftMoreDetails(props) {
       });
   };
 
+  const cloneNft=()=>{
+    //save NFT to my files
+    
+  }
+
   return (
     <>
       <Button variant="primary" onClick={getMetadata}>
@@ -88,12 +93,15 @@ export default function NftMoreDetails(props) {
 
           <p>Description: {props.nft.description}</p>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="d-flex">
           {nftMetadata.nft_data && !nftMetadata.nft_data[0].burned && (
             <Button variant="primary" onClick={burnNft}>
               Burn NFT
             </Button>
           )}
+          <Button variant="primary" onClick={cloneNft}>
+              Clone NFT
+            </Button>
         </Modal.Footer>
       </Modal>
     </>
