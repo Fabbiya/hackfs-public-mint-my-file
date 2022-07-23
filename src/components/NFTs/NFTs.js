@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import {Card,Row,Col} from "react-bootstrap";
+import TransferNFT from "./TransferNFT";
 
 export default function NFTs() {
   const { authenticate, isAuthenticated, user } = useMoralis();
@@ -34,6 +35,7 @@ export default function NFTs() {
         provider: "web3Auth",
         clientId:
         process.env.REACT_APP_WEB3AUTH_CLIENT,
+        chainId:"0x89"
       })
         .then(function(user) {
           
@@ -65,11 +67,11 @@ export default function NFTs() {
 
   return (
     <div>
-      <h3>Your NFTs</h3>
+      {/* <h3>Your NFTs</h3> */}
       <Row>
       {nfts.map((item, index) => {
         return (
-          <Col lg={4} className="my-2">
+          <Col lg={4} className="my-2" key={index}>
           <Card  key={index}>
             <Card.Img variant="top" src={item.file_url.replace("ipfs://","https://ipfs.io/ipfs/")} />
             <Card.Body>
@@ -79,6 +81,9 @@ export default function NFTs() {
               </Card.Text>
               
             </Card.Body>
+           <Card.Footer>
+           <TransferNFT nft={item}/>
+           </Card.Footer>
           </Card>
           </Col>
         );

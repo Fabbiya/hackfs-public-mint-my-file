@@ -13,13 +13,14 @@ export default function Web3Login() {
   } = useMoralis();
 
 
-  const login = async () => {
+  const login =  () => {
     console.log("account", account);
     if (account === null) {
-      await authenticate({
+      authenticate({
         provider: "web3Auth",
         clientId:
         process.env.REACT_APP_WEB3AUTH_CLIENT,
+        chainId:"0x89"
       })
         .then(function(user) {
           console.log(user.get("ethAddress"));

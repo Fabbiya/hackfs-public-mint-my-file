@@ -16,8 +16,9 @@ export default function TopNav() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
+      <Navbar.Brand href="/">Mint My File</Navbar.Brand>
       <Nav className='ms-auto'>
-          
+      
           <Web3Login/>
         </Nav>
       </Container>
