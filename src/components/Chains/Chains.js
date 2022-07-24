@@ -85,7 +85,7 @@ export default function Chains() {
   return (
     <Dropdown className="mx-3">
       <Dropdown.Toggle
-        variant="dark"
+        variant="light"
         id="dropdown-basic"
         className="btn h-100 w-100 py-2 mt-2 mt-lg-0 mb-2 mb-lg-0"
       >

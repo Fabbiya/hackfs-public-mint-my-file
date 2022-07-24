@@ -2,6 +2,7 @@ import React, {  useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import BurnNft from "./BurnNft";
+import CloneNFT from "./CloneNFT";
 
 
 export default function NftMoreDetails(props) {
@@ -73,9 +74,7 @@ export default function NftMoreDetails(props) {
           {nftMetadata.nft_data && !nftMetadata.nft_data[0].burned && (
             <BurnNft nft={props.nft}/>
           )}
-          <Button variant="primary" onClick={cloneNft}>
-              Clone NFT
-            </Button>
+          <CloneNFT nft={nftMetadata}/>
         </Modal.Footer>
       </Modal>
     </>

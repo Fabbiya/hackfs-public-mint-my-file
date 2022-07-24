@@ -5,6 +5,7 @@ import { CDBBtn } from "cdbreact";
 import { useMoralis } from "react-moralis";
 import "./MintMetadata.css";
 import { saveMintedMetadata } from "../../helpers/FileData";
+import CustomNFTMinting from "./CustomNFTMinting";
 export default function MintMetadata() {
   const [form, setForm] = useState({});
   const [address, setAddress] = useState();
@@ -13,6 +14,7 @@ export default function MintMetadata() {
   const [alert, setAlert] = useState({});
   const[showAlert,setShowAlert] = useState(false)
   const[isLoading,setIsLoading] = useState(false)
+  const[metadata,setMetadata] = useState();
   const handleOnChange = (e) => {
     setForm({ ...form, [e.target.id]: e.target.value });
   };
@@ -69,6 +71,7 @@ export default function MintMetadata() {
           return response.json();
         }).then((responseJson) => {
           const dbData = {...form,fileUrl: responseJson.file_url,metadataUri: responseJson.metadata_uri,customFields: responseJson.custom_fields }
+          setMetadata(responseJson.metadata_uri)
           const res = saveMintedMetadata(dbData,address)
           setAlert ({
             type:"success",
@@ -208,6 +211,7 @@ export default function MintMetadata() {
           {(isLoading)?<Spinner animation="border" />:"Mint Metadata "}
         </CDBBtn>
       </Form>
+      <CustomNFTMinting address={address} metadata={metadata} />
     </Container>
   );
 }

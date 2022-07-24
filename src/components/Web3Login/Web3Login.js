@@ -36,7 +36,7 @@ export default function Web3Login() {
   };
 
   useEffect(() => {
-    login()
+    // login()
   }, [])
   
 
