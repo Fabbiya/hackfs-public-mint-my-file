@@ -35,7 +35,7 @@ export default function NftMoreDetails(props) {
         More Details...
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>{props.nft.name}</Modal.Title>
         </Modal.Header>
