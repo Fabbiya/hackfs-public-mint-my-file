@@ -141,8 +141,6 @@ export default function CloneNFT(props) {
                 alt={props.nft.nft_data[0].external_data.name}
               />
             </Form.Group>
-
-            
           </Form>
         </Modal.Body>
         <Modal.Footer>

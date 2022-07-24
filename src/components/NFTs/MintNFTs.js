@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Alert, Container,Spinner } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { CDBBtn } from "cdbreact";
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton';
 
 import { useMoralis } from "react-moralis";
 import { saveMintedNFT } from "../../helpers/FileData";
@@ -12,6 +14,16 @@ export default function MintNFTs() {
   const[isLoading,setIsLoading] = useState(false)
   const [showAlert, setShowAlert] = useState(false);
   const { authenticate, isAuthenticated, user } = useMoralis();
+  const [checked, setChecked] = useState(false);
+  const [radioValue, setRadioValue] = useState('3');
+  const radios = [
+    { name: 'Polygon', value: '1' },
+    { name: 'Ethereum', value: '2' },
+    { name: 'Rinkeby', value: '3' },
+    { name: 'Mumbai', value: '4' },
+    { name: 'Goerli', value: '5' },
+    { name: 'Solana', value: '6' },
+  ];
   const [alert, setAlert] = useState({
     message: ``,
     link: ``,
@@ -111,6 +123,23 @@ export default function MintNFTs() {
           {alert.linkText}
         </Alert.Link>
       </Alert>
+      <p>Select Network to Mint NFT</p>
+      <ButtonGroup>
+            {radios.map((radio, idx) => (
+              <ToggleButton
+                key={idx}
+                id={`radio-${idx}`}
+                type="radio"
+                variant="outline-primary"
+                name="radio"
+                value={radio.value}
+                checked={radioValue === radio.value}
+                onChange={(e) => setRadioValue(e.currentTarget.value)}
+              >
+                {radio.name}
+              </ToggleButton>
+            ))}
+          </ButtonGroup>
       <Form className="my-5">
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Name your NFT</Form.Label>
