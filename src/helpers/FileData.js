@@ -2,7 +2,7 @@ import { Moralis } from "moralis";
 
 export const saveFileToMintFiles = async (data, address) => {
   console.log("data to save", data);
-  const MintFilesLeg = Moralis.Object.extend("MintFiles");
+  const MintFilesLeg = Moralis.Object.extend("FilesMinted");
   const mintFiles = new MintFilesLeg();
   mintFiles.set("contentType", data.content_type);
   mintFiles.set("fileName", data.file_name);
@@ -18,7 +18,7 @@ export const saveFileToMintFiles = async (data, address) => {
 
 export const saveMintedMetadata = async (data, address) => {
   console.log("data", data);
-  const MintMeta = Moralis.Object.extend("MintMeta");
+  const MintMeta = Moralis.Object.extend("MetadataMinted");
   const mintMeta = new MintMeta();
   mintMeta.set("name", data.name);
   mintMeta.set("description", data.description);
@@ -35,21 +35,20 @@ export const saveMintedMetadata = async (data, address) => {
   });
 };
 
-// export const getData = async(address,table) => {
-//     const { fetch } = useMoralisQuery(
-//         table,
-//         (query) => query.equalTo("minter_address", address),
-//         [],
-//         { autoFetch: false }
-//       );
-
-//       fetch({
-//         onSuccess: (data) => {
-//           console.log("mydata",data)
-//           return data
-//         },
-//         onError: (error) => {
-//           console.error(error);
-//         },
-//       });
-// }
+export const saveMintedNFT = async (data, address) => {
+  const MintNFT = Moralis.Object.extend("NFTMinted");
+  const mintNft = new MintNFT();
+  mintNft.set("chain", data.chain);
+  mintNft.set("contractAddress", data.contract_address);
+  mintNft.set("description", data.description);
+  mintNft.set("mintedTo", data.mint_to_address);
+  mintNft.set("name", data.name);
+  mintNft.set("txUrl", data.transaction_external_url);
+  mintNft.set("txHash", data.transaction_hash);
+  mintNft.set("minter_address", address);
+  
+  await mintNft.save().then((res) => {
+    console.log(res);
+    return res;
+  });
+};

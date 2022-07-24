@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { Col, Container, Form, Alert, Row } from "react-bootstrap";
+import { Col, Container, Form, Alert, Row,Spinner } from "react-bootstrap";
 import { CDBBtn } from "cdbreact";
 import { useMoralis } from "react-moralis";
 import "./MintMetadata.css";
@@ -12,7 +12,7 @@ export default function MintMetadata() {
   const [myFiles, setMyFiles] = useState([]);
   const [alert, setAlert] = useState({});
   const[showAlert,setShowAlert] = useState(false)
-
+  const[isLoading,setIsLoading] = useState(false)
   const handleOnChange = (e) => {
     setForm({ ...form, [e.target.id]: e.target.value });
   };
@@ -21,6 +21,7 @@ export default function MintMetadata() {
   };
 
   const getFiles = () => {
+    
     fetch("https://api.nftport.xyz/v0/me/storage?type=file", {
       method: "GET",
       headers: {
@@ -34,12 +35,15 @@ export default function MintMetadata() {
       .then((responseJson) => {
         console.log(responseJson.storage);
         setMyFiles(responseJson.storage);
+        
       })
       .catch((err) => {
         console.error(err);
+        
       });
   };
   const mintMetadata = () => {
+    setIsLoading(true)
     if (isAuthenticated) {
       const data = {
         description:form.description,
@@ -65,13 +69,14 @@ export default function MintMetadata() {
           return response.json();
         }).then((responseJson) => {
           const dbData = {...form,fileUrl: responseJson.file_url,metadataUri: responseJson.metadata_uri,customFields: responseJson.custom_fields }
-          saveMintedMetadata(dbData,address)
+          const res = saveMintedMetadata(dbData,address)
           setAlert ({
             type:"success",
             message:"data added successfully",
             title:"Done!"
           })
           setShowAlert(true)
+          setIsLoading(false)
         })
         .catch((err) => {
           console.error(err);
@@ -81,6 +86,7 @@ export default function MintMetadata() {
             title:"Error"
           })
           setShowAlert(true)
+          setIsLoading(false)
         });
     }
   };
@@ -183,7 +189,8 @@ export default function MintMetadata() {
                         .replace("ipfs://", "")
                         .replace("/", "")}
                     >
-                      <img src={item.ipfs_url} alt={item.file_name} />
+                      <img src={item.ipfs_url} alt={item.file_name} 
+                      className=" rounded"/>
                       <div className="tick_container">
                         <div className="tick">
                           <i className="fa fa-check"></i>
@@ -197,7 +204,8 @@ export default function MintMetadata() {
         </Form.Group>
 
         <CDBBtn color="primary" outline circle onClick={mintMetadata}>
-          Mint Metadata as a File
+          
+          {(isLoading)?<Spinner animation="border" />:"Mint Metadata "}
         </CDBBtn>
       </Form>
     </Container>

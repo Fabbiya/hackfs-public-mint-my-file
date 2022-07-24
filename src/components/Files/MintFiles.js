@@ -3,6 +3,7 @@ import { Container, Form, Alert } from "react-bootstrap";
 import { useMoralis } from "react-moralis";
 import { CDBBtn } from "cdbreact";
 import { saveFileToMintFiles } from "../../helpers/FileData";
+import Spinner from 'react-bootstrap/Spinner';
 
 export default function MintFiles() {
   const [file, setFile] = useState();
@@ -10,11 +11,13 @@ export default function MintFiles() {
   const { authenticate, isAuthenticated, user } = useMoralis();
   const [alert, setAlert] = useState({});
   const [showAlert, setShowAlert] = useState(false);
+  const[isLoading,setIsLoading] = useState(false)
   const handleOnChangeFile = (e) => {
     setFile(e.target.files[0]);
   };
 
   const mintFile = () => {
+    setIsLoading(true);
     if (isAuthenticated) {
       const form = new FormData();
       form.append("file", file);
@@ -33,6 +36,7 @@ export default function MintFiles() {
         })
         .then(function (responseJson) {
           console.log(responseJson);
+          setIsLoading(false)
           if (responseJson.response === "OK") {
             setAlert({
               type: "success",
@@ -48,8 +52,6 @@ export default function MintFiles() {
             });
             setShowAlert(true);
           }
-          //write data to moralis db
-
           saveFileToMintFiles(responseJson, address);
         })
         .catch((err) => {
@@ -60,6 +62,7 @@ export default function MintFiles() {
             title: "Error",
           });
           setShowAlert(true);
+          setIsLoading(false)
         });
     }
   };
@@ -104,22 +107,10 @@ export default function MintFiles() {
           <Form.Label>Choose your File</Form.Label>
           <Form.Control type="file" onChange={handleOnChangeFile} />
         </Form.Group>
-        <CDBBtn color="primary" outline circle onClick={mintFile}>
-          Mint Your File
+        <CDBBtn color="primary" outline circle onClick={mintFile} disabled={isLoading}>
+          {(isLoading)?<Spinner animation="border" />:"Mint Your File"}
         </CDBBtn>
       </Form>
-
-{/* {result &&
-( result.content_type.split("/")[0] === "image") ? (
-  <img src={result.ipfs_url} className="w-100" />
-) : (
-  <FileViewer
-    fileType={result.content_type.split("/").pop() || ""}
-    filePath={result.ipfs_url}
-  />
-)
-
-} */}
     </Container>
   );
 }

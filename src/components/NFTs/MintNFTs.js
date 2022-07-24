@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { Alert, Container } from "react-bootstrap";
+import { Alert, Container,Spinner } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { CDBBtn } from "cdbreact";
 
 import { useMoralis } from "react-moralis";
+import { saveMintedNFT } from "../../helpers/FileData";
+
 
 export default function MintNFTs() {
   const [form, setForm] = useState({});
+  const[isLoading,setIsLoading] = useState(false)
   const [showAlert, setShowAlert] = useState(false);
   const { authenticate, isAuthenticated, user } = useMoralis();
   const [alert, setAlert] = useState({
@@ -22,6 +25,7 @@ export default function MintNFTs() {
     setForm({ ...form, file: e.target.files[0] });
   };
   const mintNFT = () => {
+    setIsLoading(true)
     if (isAuthenticated) {
       const address = user.get("ethAddress");
       setForm({ ...form, minterAddress: user.get("ethAddress") });
@@ -51,18 +55,27 @@ export default function MintNFTs() {
           return response.json();
         })
         .then(function (responseJson) {
-          // Handle the response
-          console.log(responseJson);
-          //-----------------save responsejson on DB
-          //ok or NOK alert response -- view error - retry
-          setAlert({
-            message: `NFT successfully deployed with contract address : ${responseJson.contract_address}`,
-            link: `${responseJson.transaction_external_url}`,
-            variant: "success",
-          });
+          console.log("NFT",responseJson);
+          if(responseJson.response==="OK"){
+            setAlert({
+              message: `NFT successfully deployed with contract address : ${responseJson.contract_address}`,
+              link: `${responseJson.transaction_external_url}`,
+              variant: "success",
+              linkText:"View Transaction"
+            });
+            saveMintedNFT(data,address)
+            setIsLoading(false)
+          }
+          else{
+            setAlert({
+              message: `An error occured. Please try again later`,
+              link: `#`,
+              variant: "danger",
+              linkText:""
+            });
+            setIsLoading(false)
+          }
           setShowAlert(true);
-          //show file on IPFS with details
-          //- show gateway file https
         });
     } else {
       authenticate({
@@ -95,7 +108,7 @@ export default function MintNFTs() {
         {alert.message}
         <br />
         <Alert.Link href={alert.link} target="_blank">
-          View Transaction
+          {alert.linkText}
         </Alert.Link>
       </Alert>
       <Form className="my-5">
@@ -118,9 +131,12 @@ export default function MintNFTs() {
         </Form.Group>
 
         <CDBBtn color="primary" outline circle onClick={mintNFT}>
-          Mint NFT
+          
+          {(isLoading)?<Spinner animation="border" />:"Mint NFT"}
         </CDBBtn>
       </Form>
+
+      
     </Container>
   );
 }

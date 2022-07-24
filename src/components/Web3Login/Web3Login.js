@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useMoralis } from "react-moralis";
 import { CDBBtn } from "cdbreact";
+import Spinner from 'react-bootstrap/Spinner';
 
 export default function Web3Login() {
   const {
@@ -12,7 +13,6 @@ export default function Web3Login() {
 
 
   const login =  () => {
-    console.log("account", account);
     if (account === null) {
       authenticate({
         provider: "web3Auth",
@@ -35,10 +35,15 @@ export default function Web3Login() {
     console.log("logged out");
   };
 
+  useEffect(() => {
+    login()
+  }, [])
+  
+
   if (isAuthenticated && account) {
     return (
       <>
-        <CDBBtn color="dark" outline circle onClick={logOut}>
+        <CDBBtn color="dark" outline circle onClick={logOut} disabled={isAuthenticating}>
           {account.substring(0, 4)} ... {account.substring(account.length - 4)}
         </CDBBtn>
 
@@ -55,8 +60,10 @@ export default function Web3Login() {
         style={{ width: "120px" }}
         outline
         circle
+        disabled={isAuthenticating}
       >
-        Login
+        {(isAuthenticating)?(<Spinner animation="border" variant="dark" />):"Login"}
+        
       </CDBBtn>
     </>
   );
