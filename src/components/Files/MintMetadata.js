@@ -55,7 +55,9 @@ export default function MintMetadata() {
           author:form.author,
           twitter:form.twitter,
           telegram:form.telegram,
-          portfolio:form.portfolio
+          portfolio:form.portfolio,
+          loyality:form.loyality,
+          percentage:form.percentage
         }
       }
       console.log("data",JSON.stringify(data))
@@ -171,6 +173,21 @@ export default function MintMetadata() {
         <Form.Group className="mb-3" controlId="description">
           <Form.Label>Description</Form.Label>
           <Form.Control as="textarea" rows={3} onChange={handleOnChange} />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="loyality">
+          <Form.Label>Loyality</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter Loyality"
+            onChange={handleOnChange}
+          />
+        </Form.Group><Form.Group className="mb-3" controlId="percentage">
+          <Form.Label>Percentage</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter Creator Percentage"
+            onChange={handleOnChange}
+          />
         </Form.Group>
         <Form.Group controlId="file_url" className="mb-3">
           <Form.Label>Choose From your files</Form.Label>
