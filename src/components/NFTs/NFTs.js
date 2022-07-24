@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useMoralis } from "react-moralis";
-import {Card,Row,Col} from "react-bootstrap";
-import TransferNFT from "./TransferNFT";
+import {Row,Col} from "react-bootstrap";
 import NftCard from "./NftCard";
 
 export default function NFTs(props) {
@@ -51,6 +49,7 @@ export default function NFTs(props) {
         );
       })}
       </Row>
+      <hr/>
     </div>
   );
 }

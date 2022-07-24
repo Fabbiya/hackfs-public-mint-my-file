@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import ManageFiles from '../FileManager/ManageFiles'
+
 export default function Dashboard() {
   return (
     <Container>
@@ -13,7 +13,7 @@ export default function Dashboard() {
             {/* <a href='/mintfiles'>
               Mint Files
             </a> */}
-            <Link to="/mintfiles">Mint Files</Link>
+            <Link to="/files">Files</Link>
           </Card.Body>
         </Card>
         </Col>

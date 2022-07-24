@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Col, Container, Row, Table } from "react-bootstrap";
+import {  Container, Table } from "react-bootstrap";
 import NFTs from "../NFTs/NFTs";
 // import SyncSocial from '../SyncSocial/SyncSocial'
 import { useMoralis } from "react-moralis";
 import NativeBalance from "../NativeBalance/NativeBalance";
+import UserFiles from "../Files/UserFiles";
 
 export default function Profile() {
   const [account, setAccount] = useState();
@@ -56,6 +57,7 @@ export default function Profile() {
       <h2>Your NFTs</h2>
       <NFTs wallet={account} />
       <h2>Your Files</h2>
+      <UserFiles wallet={account}/>
     </Container>
   );
 }

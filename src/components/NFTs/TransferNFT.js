@@ -1,11 +1,8 @@
-import Moralis from "moralis";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
-import { useWeb3Transfer, useMoralis } from "react-moralis";
+import { useWeb3Transfer } from "react-moralis";
 
 export default function TransferNFT(props) {
-  const [connectorId, setConnectorId] = useState("injected");
-  const { enableWeb3 } = useMoralis();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -24,26 +21,8 @@ export default function TransferNFT(props) {
     setForm({ ...form, [e.target.id]: e.target.value });
   };
 
-  //   const transfer = async() =>{
-  //     console.log("receiver",form.receiver)
-  //     console.log("info",props.nft)
-  //     const options ={
-  //         type: "erc721",
-  //         receiver: form.receiver,
-  //         contractAddress: props.nft.contract_address,
-  //         tokenId: props.nft.token_id,
-  //         chain:"polygon"
-  //     }
-  //     const result = await Moralis.transfer(options)
-  //     //fetch();
-
-  //   }
-
   return (
     <div>
-      {/* <button onClick={() => fetch()} disabled={isFetching}>
-        Transfer
-      </button> */}
 
       <Button variant="dark" onClick={handleShow}>
         Send

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import BurnNft from "./BurnNft";
+
 
 export default function NftMoreDetails(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  //const handleShow = () => setShow(true);
   const [nftMetadata, setNftMetadata] = useState({});
 
   //get meta data info
   const getMetadata = () => {
-    //https://api.covalenthq.com/v1/137/tokens/${props.nft.contract_address}/nft_metadata/${props.nft.token_id}/?key=ckey_46c7c91b16d442c49cf9cc35ddd
     const url = `https://api.covalenthq.com/v1/137/tokens/${props.nft.contract_address}/nft_metadata/${props.nft.token_id}/?&key=${process.env.REACT_APP_COVALENT}`;
 
     fetch(url)
@@ -22,42 +22,11 @@ export default function NftMoreDetails(props) {
       });
   };
 
-  const burnNft = () => {
-    // const formData = new FormData();
-    // formData.append("chain", "polygon");
-    // formData.append("contract_address", props.nft.contract_address);
-    // formData.append("token_id", props.nft.token_id);
-    const data = {
-      chain:'polygon',
-      contract_address:props.nft.contract_address,
-      token_id:props.nft.token_id
-    }
-    let url = "https://api.nftport.xyz/v0/mints/customizable";
+  
 
-    let options = {
-      method: "DELETE",
-      body:JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: process.env.REACT_APP_NFTPORT,
-      },
-    };
-
-    console.log(options);
-
-    fetch(url, options)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (responsejson) {
-        console.log("burn data", responsejson);
-      });
-  };
-
-  const cloneNft=()=>{
+  const cloneNft = () => {
     //save NFT to my files
-    
-  }
+  };
 
   return (
     <>
@@ -70,10 +39,13 @@ export default function NftMoreDetails(props) {
           <Modal.Title>{props.nft.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body className="w-100">
+          
           <img
             className="w-100"
             src={props.nft.file_url.replace("ipfs://", "https://ipfs.io/ipfs/")}
+            alt={props.nft.name}
           />
+          <p className="text-muted"><small>Data provided by Covalent API</small></p>
           <p>Token ID: {props.nft.token_id}</p>
           <p>
             Token URL:{" "}
@@ -94,10 +66,12 @@ export default function NftMoreDetails(props) {
           <p>Description: {props.nft.description}</p>
         </Modal.Body>
         <Modal.Footer className="d-flex">
-          {nftMetadata.nft_data && !nftMetadata.nft_data[0].burned && (
-            <Button variant="primary" onClick={burnNft}>
-              Burn NFT
+          {/* show tx , history, trade ,poap */}
+        <Button variant="primary" onClick={cloneNft}>
+              NFT Analytics
             </Button>
+          {nftMetadata.nft_data && !nftMetadata.nft_data[0].burned && (
+            <BurnNft nft={props.nft}/>
           )}
           <Button variant="primary" onClick={cloneNft}>
               Clone NFT

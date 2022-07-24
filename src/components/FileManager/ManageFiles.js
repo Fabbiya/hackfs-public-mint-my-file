@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { FileManager, FileNavigator } from '@opuscapita/react-filemanager';
 import connectorNodeV1 from '@opuscapita/react-filemanager-connector-node-v1';
 

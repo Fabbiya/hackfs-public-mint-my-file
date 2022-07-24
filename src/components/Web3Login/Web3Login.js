@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import Button from "react-bootstrap/esm/Button";
+import React from "react";
 import { useMoralis } from "react-moralis";
 import { CDBBtn } from "cdbreact";
 
@@ -8,7 +7,6 @@ export default function Web3Login() {
     authenticate,
     isAuthenticated,
     isAuthenticating,
-    user,
     account,
   } = useMoralis();
 
